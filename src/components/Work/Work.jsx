@@ -1,86 +1,110 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./Work.css";
+import { div, p, script, ul } from "framer-motion/client";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
-const employers = [
-  { id: 1, name: "John Deere", color: "#367C2B", job: "Vulnerability Analyst", description: "Worked on AI-driven search enhancements.", image: "/src/assets/deere.png" },
-  { id: 2, name: "HomeTown Tech", color: "#FF9900", job: "Cloud Developer", description: "Developed AWS cloud solutions.", image: "../../assets/HTT.png" },
-  { id: 3, name: "Ames Moose Lodge", color: "#E82127", job: "Embedded Engineer", description: "Optimized firmware for autonomous vehicles.", image: "path/to/tesla-logo.png" },
-  { id: 4, name: "Kwik Star", color: "#E82127", job: "Embedded Engineer", description: "Optimized firmware for autonomous vehicles.", image: "path/to/tesla-logo.png" },
+const cards = [
+    { 
+        id: 1, 
+        title: <p>John Deere: <br/> March 2024-Present</p>, 
+        content: 
+        <ul>
+            <li>Work in an Agile environment and discuss progress during team stand-ups</li>
+            <li>Assist with and assign vulnerability tickets generated from our scanning process</li>
+            <li>Integrated M&A's AWS environment into vulnerability scanning software deployment process</li>
+            <li>Utilized ServiceNow performance analytics to create a dynamic dashboard for Deere's bug bounty program</li>
+            <li>Designed and scripted a solution with Python to remove duplicate device entries in Deere's Qualys environment to reduce licensing</li>
+        </ul> 
+    },
+    { 
+        id: 2, 
+        title: <p>Ames Moose Lodge: <br/> March 2024-July 2024</p>, 
+        content: 
+        <ul>
+            <li>Designed and developed their website using Wix</li>
+            <li>Applied design elements based on customer needs</li>
+            <li>Shared and discussed progress during monthly meetings</li>
+        </ul>  
+    },
+    { 
+        id: 3, 
+        title: <p>HomeTown Tech: <br/> June 2023-March 2024</p>, 
+        content: 
+        <ul>
+            <li>Test computer components and manage client data using Parted Magic Software</li>
+            <li>Troubleshoot multiple computer configurations and operating systems</li>
+            <li>Communicate and quote adequate repair pricing with clients</li>
+        </ul>  
+    },
+    { 
+        id: 4, 
+        title: <p>Kwik Star: <br/> June 2020-May 2023</p>, 
+        content: 
+        <ul>
+            <li>Perform basic accounting duties and manage money tendered via cash and card payments</li>
+            <li>Maintain inventory of sale items and verify the contents of daily truck deliveries</li>
+            <li>Operate as a team to keep the store well-stocked and organized for both employees and customers</li>
+        </ul>  
+    }
 ];
 
-const WorkExperience = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-  const [swingDirection, setSwingDirection] = useState(0);
+const Work = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [expanded, setExpanded] = useState(false);
 
-  const handleNext = () => {
-    setSwingDirection(1);
-    setIsOpen(false);
-    setTimeout(() => {
-      setSelectedIndex((prev) => (prev + 1) % employers.length);
-      setSwingDirection(0);
-    }, 400); // Adjust the timeout to match the animation duration
-  };
+    const handleNext = () => {
+        setActiveIndex((prevIndex) => (prevIndex + 1) % cards.length);
+        setExpanded(false); // Collapse any expanded card when navigating
+    };
 
-  const handlePrev = () => {
-    setSwingDirection(-1);
-    setIsOpen(false);
-    setTimeout(() => {
-      setSelectedIndex((prev) => (prev - 1 + employers.length) % employers.length);
-      setSwingDirection(0);
-    }, 400); // Adjust the timeout to match the animation duration
-  };
+    const handlePrev = () => {
+        setActiveIndex((prevIndex) => (prevIndex - 1 + cards.length) % cards.length);
+        setExpanded(false); // Collapse any expanded card when navigating
+    };
 
-  const toggleDoor = () => setIsOpen(!isOpen);
+    const handleCardClick = (index) => {
+        if (index === activeIndex) {
+            // If the clicked card is already active, toggle the expanded state
+            setExpanded(!expanded);
+        } else {
+            // If a different card is clicked, make it active and expand it
+            setActiveIndex(index);
+            setExpanded(true);
+        }
+    };
 
-  return (
-    <div className="work-experience">
-      <button onClick={handlePrev} className="nav-button">←</button>
+    return (
+        <div className="carousel-container">
+            <button className="nav-button left" onClick={handlePrev}>
+                <ChevronLeft size={32} />
+            </button>
 
-      <div className="doors-container">
-        <motion.div
-          className="door prev-door"
-          style={{ backgroundColor: employers[(selectedIndex - 1 + employers.length) % employers.length].color }}
-          animate={{ rotateY: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-        >
-          <img src={employers[(selectedIndex - 1 + employers.length) % employers.length].image} alt={`${employers[(selectedIndex - 1 + employers.length) % employers.length].name} logo`} />
-        </motion.div>
+            <div className="carousel">
+                {cards.map((card, index) => (
+                    <div
+                        key={card.id}
+                        className={`card ${index === activeIndex ? "active" : ""} ${expanded && index === activeIndex ? "expanded" : ""}`}
+                        onClick={() => handleCardClick(index)} // Handle card click
+                    >
+                        <h3>{card.title}</h3>
+                        {expanded && index === activeIndex && (
+                            <div className="expanded-content">
+                                <p>{card.content}</p>
+                                <button className="close-btn" onClick={() => setExpanded(false)}>
+                                    <X size={24} />
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
 
-        <motion.div
-          className="door"
-          onClick={toggleDoor}
-          style={{ backgroundColor: employers[selectedIndex].color }}
-          animate={{ rotateY: isOpen ? -110 : 0, rotateZ: swingDirection === 1 ? [0, 15, 0] : swingDirection === -1 ? [0, -15, 0] : 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-        >
-          <img src={employers[selectedIndex].image} alt={`${employers[selectedIndex].name} logo`} />
-          {!isOpen ? <h2>{employers[selectedIndex].name}</h2> : null}
-          <div className="door-handle"></div>
-        </motion.div>
-
-        <motion.div
-          className="door next-door"
-          style={{ backgroundColor: employers[(selectedIndex + 1) % employers.length].color }}
-          animate={{ rotateY: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-        >
-          <img src={employers[(selectedIndex + 1) % employers.length].image} alt={`${employers[(selectedIndex + 1) % employers.length].name} logo`} />
-        </motion.div>
-      </div>
-
-      {isOpen && (
-        <motion.div className="job-details" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <h3>{employers[selectedIndex].job}</h3>
-          <p>{employers[selectedIndex].description}</p>
-          <button onClick={toggleDoor}>Close Door</button>
-        </motion.div>
-      )}
-
-      <button onClick={handleNext} className="nav-button">→</button>
-    </div>
-  );
+            <button className="nav-button right" onClick={handleNext}>
+                <ChevronRight size={32} />
+            </button>
+        </div>
+    );
 };
 
-export default WorkExperience;
+export default Work;

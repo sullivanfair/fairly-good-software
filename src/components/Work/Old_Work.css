@@ -1,0 +1,77 @@
+.work-experience {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    perspective: 1000px; /* Adds depth effect */
+    height: 100vh;
+    position: relative;
+  }
+  
+  .doors-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 250px;
+  }
+  
+  .door, .next-door, .prev-door {
+    width: 150px;
+    height: 250px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 16px; /* Adjusted font size */
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transform-origin: left;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+    position: relative;
+    background: #f0f0f0; /* Light grey background */
+    border: 5px solid #333; /* Dark border */
+    padding-top: 10px; /* Space for the image */
+  }
+  
+  .door img, .next-door img, .prev-door img {
+    width: 80%;
+    height: auto;
+  }
+  
+  .door-handle {
+    width: 10px;
+    height: 30px;
+    background: #333; /* Dark color for the handle */
+    position: absolute;
+    right: 10px;
+    bottom: 100px;
+    border-radius: 5px;
+  }
+  
+  .job-details {
+    position: absolute;
+    max-width: 700px;
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+    margin: 20px;
+  }
+  
+  .nav-button {
+    background: black;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background: red;
+  }

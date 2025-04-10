@@ -6,7 +6,7 @@ const Home = () => {
     <section id="home" className="home-section">
       <div className="home-container">
         <div className="home-image">
-          <img src="src/assets/Fair_Profile_Pic.jpg" alt="Sullivan Fair" />
+          <img src="./assets/Fair_Profile_Pic.jpg" alt="Sullivan Fair" />
         </div>
         <div className="home-text">
           <h1>Sullivan Fair</h1>

@@ -11,8 +11,16 @@ const Home = () => {
         <div className="home-text">
           <h1>Sullivan Fair</h1>
           <p>
-            Welcome to my portfolio! I am a passionate software developer with experience in building dynamic and responsive web applications. I enjoy solving complex problems and creating user-friendly solutions.
+            Welcome to Fairly-Good-Software!  
           </p>
+          <p>
+            I am a software engineering graduate with a minor in cyber security from Iowa State University that currently works at John Deere as a 
+            vulnerability analyst. I also enjoy playing guitar and video games in my free time.
+          </p>
+          <p>
+            I am currently searching for full-time opportunites.  Feel free to explore the website and reach out if you have any questions or would like to connect!
+          </p>
+            <a href="./assets/Sullivan Fair-Resume.pdf" target="_blank">View my Resume</a>
         </div>
       </div>
     </section>

@@ -32,7 +32,7 @@
       rgba(100, 100, 100, 0.5) 60%, /* Mid-tone shadow */
       rgba(50, 50, 50, 0.8) 85%, /* Darker shadow */
       rgba(0, 0, 0, 1) 100%), /* Darkest shadow at the edges */
-    url('./assets/planet.jpg'); /* Texture image */
+    url('./planet.jpg'); /* Texture image */
     background-size: cover; /* Ensures the texture covers the card */
     background-blend-mode: multiply; /* Blends the gradient with the texture */
     border-radius: 50%;
